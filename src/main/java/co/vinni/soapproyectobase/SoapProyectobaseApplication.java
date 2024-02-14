@@ -1,4 +1,4 @@
-package com.example.soapproyectobase;
+package co.vinni.soapproyectobase;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
