@@ -14,8 +14,7 @@ import java.util.List;
 @Service
 public class ServicioEquipos implements Serializable {
 
-
-    private ModelMapper modelMapper;
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     RespositorioEquipo repoEquipo;

@@ -24,7 +24,7 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-
+            <a class="navbar-brand" href="#" th:href="@{/equipos}">Listado de equipos</a>
 
         </div>
 
@@ -33,9 +33,39 @@
 <br>
 <br>
 <div class="container">
-    <h1>Opciones</h1>
-    <br>
-    <a class="navbar-brand" href="#" th:href="@{/equipos}">Listado de equipos</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+
+                <h1>Crear equipo</h1>
+                <form th:action="@{/equipos}" method="post" th:object="${equipo}">
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nmbre: </label> <input
+                            id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                            required autofocus="autofocus">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="descripcion">Descripcion : </label> <input
+                            id="descripcion" type="text" class="form-control" th:field="*{descripcion}"
+                            required autofocus="autofocus">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Registrar</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+    <br> <br>
+
+
 </div>
 <script
         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"

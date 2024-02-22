@@ -24,7 +24,7 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-
+            <a class="navbar-brand" href="#" th:href="@{/equipos}">Listado de equipos</a>
 
         </div>
 
@@ -33,9 +33,30 @@
 <br>
 <br>
 <div class="container">
-    <h1>Opciones</h1>
+    <h1>Listado de equipos</h1>
     <br>
-    <a class="navbar-brand" href="#" th:href="@{/equipos}">Listado de equipos</a>
+    <a class="btn btn-primary" href="#" th:href="@{/equipos/nuevo}">Adicionar Equipo</a>
+
+    <br> <br>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Serial</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="dato : ${equipos}">
+                <td th:text="${dato.serial}">Serial</td>
+                <td th:text="${dato.nombre}">nombre</td>
+                <td th:text="${dato.descripcion}">descripcion</td>
+
+            </tr>
+        </tbody>
+    </table>
 </div>
 <script
         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
