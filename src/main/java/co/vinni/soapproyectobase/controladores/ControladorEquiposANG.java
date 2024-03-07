@@ -18,6 +18,9 @@ import java.util.List;
 @Log4j2
 @Controller
 @RequestMapping("/api/equipos")
+@CrossOrigin(origins = "${spring.webmvc.cors.allowed-origins}",
+        methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
+
 public class ControladorEquiposANG {
     private static final Logger logger = LogManager.getLogger(ControladorEquipos.class);
 
