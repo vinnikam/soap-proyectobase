@@ -17,7 +17,7 @@ import java.util.List;
 
 @Log4j2
 @Controller
-@RequestMapping("/api/equipo")
+@RequestMapping("/api/equipos")
 public class ControladorEquiposANG {
     private static final Logger logger = LogManager.getLogger(ControladorEquipos.class);
 
@@ -30,22 +30,15 @@ public class ControladorEquiposANG {
         return ResponseEntity.ok(servicioEquipos.obtenerEquipos());
     }
 
-    @PostMapping("/")
-    public String registrarEquipo(EquipoDto equipo) {
-        servicioEquipos.registrar(equipo);
-        return "redirect:/equipos";
-    }
-
-
     @GetMapping("/{id}")
-    public ResponseEntity<EquipoDto> getById(@PathVariable("serial") Long serial) {
+    public ResponseEntity<EquipoDto> obtenerPorId(@PathVariable("serial") Long serial) {
         return ResponseEntity.ok(servicioEquipos.obtenerEquipo(serial));
     }
 
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EquipoDto> save(@RequestBody EquipoDto entityDto) {
+    public ResponseEntity<EquipoDto> crear(@RequestBody EquipoDto entityDto) {
         entityDto = servicioEquipos.registrar(entityDto);
 
         return new ResponseEntity<>(entityDto, HttpStatus.CREATED);
