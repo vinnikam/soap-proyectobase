@@ -38,38 +38,40 @@
             <div class="col-md-6 col-md-offset-3">
 
 
-                <h1>Crear equipo</h1>
-                <form th:action="@{/equipos}" method="post" th:object="${equipo}">
-                    <div class="form-group">
-                        <label class="control-label" for="nombre">Nmbre: </label> <input
-                            id="nombre" type="text" class="form-control" th:field="*{nombre}"
-                            required autofocus="autofocus">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="descripcion">Descripcion : </label> <input
-                            id="descripcion" type="text" class="form-control" th:field="*{descripcion}"
-                            required autofocus="autofocus">
-                    </div>
+                <h1>Editar equipo</h1>
+                <div class="card-body">
+                    <form th:action="@{/equipos/{serial}(serial=${equipo.serial})}" method="post" th:object="${equipo}">
+                        <div class="form-group">
+                            <label class="control-label" for="nombre">Nmbre: </label> <input
+                                id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                                required autofocus="autofocus">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="descripcion">Descripcion : </label> <input
+                                id="descripcion" type="text" class="form-control" th:field="*{descripcion}"
+                                required autofocus="autofocus">
+                        </div>
 
 
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Actualizar </button>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Registrar</button>
-
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
 
             </div>
         </div>
 
 
-    <br> <br>
+        <br> <br>
 
 
-</div>
-<script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+    </div>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </body>
 </html>

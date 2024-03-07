@@ -45,6 +45,7 @@
             <th>Serial</th>
             <th>Nombre</th>
             <th>Descripcion</th>
+            <th>Accione</th>
 
         </tr>
         </thead>
@@ -53,6 +54,10 @@
                 <td th:text="${dato.serial}">Serial</td>
                 <td th:text="${dato.nombre}">nombre</td>
                 <td th:text="${dato.descripcion}">descripcion</td>
+                <td >
+                    <a th:href="@{/equipos/modificar/{serial}(serial=${dato.serial})}" class="btn btn-info">Editar</a>
+                    <a th:href="@{/equipos/{serial}(serial=${dato.serial})}" class="btn btn-danger">Eliminar</a>
+                </td>
 
             </tr>
         </tbody>
