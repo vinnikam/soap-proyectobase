@@ -4,6 +4,7 @@ package co.vinni.soapproyectobase.controladores;
 import co.vinni.soapproyectobase.dto.EquipoDto;
 import co.vinni.soapproyectobase.entidades.Equipo;
 import co.vinni.soapproyectobase.servicios.ServicioEquipos;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Log4j2
-@Controller
+@AllArgsConstructor
+@RestController
 @RequestMapping("/api/equipos")
 @CrossOrigin(origins = "${spring.webmvc.cors.allowed-origins}",
         methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
@@ -24,8 +26,8 @@ import java.util.List;
 public class ControladorEquiposANG {
     private static final Logger logger = LogManager.getLogger(ControladorEquipos.class);
 
-    @Autowired
-    ServicioEquipos servicioEquipos;
+
+    private ServicioEquipos servicioEquipos;
 
     @GetMapping("/")
     public ResponseEntity<List<EquipoDto>> listarEquipos(){
@@ -45,6 +47,13 @@ public class ControladorEquiposANG {
         entityDto = servicioEquipos.registrar(entityDto);
 
         return new ResponseEntity<>(entityDto, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void borrado(@PathVariable("serial") Long serial) {
+
+        servicioEquipos.eliminar(serial);
     }
 
 }

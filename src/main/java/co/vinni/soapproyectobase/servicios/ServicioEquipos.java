@@ -3,6 +3,7 @@ package co.vinni.soapproyectobase.servicios;
 import co.vinni.soapproyectobase.dto.EquipoDto;
 import co.vinni.soapproyectobase.entidades.Equipo;
 import co.vinni.soapproyectobase.repositorios.RespositorioEquipo;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,14 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class ServicioEquipos implements Serializable {
 
-    private ModelMapper modelMapper = new ModelMapper();
 
-    @Autowired
-    RespositorioEquipo repoEquipo;
+    private ModelMapper modelMapper;
+
+    private final RespositorioEquipo repoEquipo;
 
     public EquipoDto registrar(EquipoDto equipoDto) {
 
