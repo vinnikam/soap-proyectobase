@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,21 +36,29 @@ public class ControladorEquiposANG {
         return ResponseEntity.ok(servicioEquipos.obtenerEquipos());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{serial}")
     public ResponseEntity<EquipoDto> obtenerPorId(@PathVariable("serial") Long serial) {
+        log.info( " Ïngresa serial "+ serial);
         return ResponseEntity.ok(servicioEquipos.obtenerEquipo(serial));
     }
 
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EquipoDto> crear(@RequestBody EquipoDto entityDto) {
+    public ResponseEntity<EquipoDto> crear(@Validated @RequestBody EquipoDto entityDto) {
         entityDto = servicioEquipos.registrar(entityDto);
 
         return new ResponseEntity<>(entityDto, HttpStatus.CREATED);
     }
+    @PutMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<EquipoDto> modificar(@Validated @RequestBody EquipoDto entityDto) {
+        entityDto = servicioEquipos.actualizar(entityDto);
 
-    @DeleteMapping("/{id}")
+        return new ResponseEntity<>(entityDto, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{serial}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void borrado(@PathVariable("serial") Long serial) {
 

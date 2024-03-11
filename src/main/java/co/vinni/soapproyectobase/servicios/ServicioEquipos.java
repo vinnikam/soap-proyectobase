@@ -2,6 +2,7 @@ package co.vinni.soapproyectobase.servicios;
 
 import co.vinni.soapproyectobase.dto.EquipoDto;
 import co.vinni.soapproyectobase.entidades.Equipo;
+import co.vinni.soapproyectobase.exception.ResourceNotFoundException;
 import co.vinni.soapproyectobase.repositorios.RespositorioEquipo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -32,12 +33,13 @@ public class ServicioEquipos implements Serializable {
 
     }
     public EquipoDto obtenerEquipo(long serial) {
-        Equipo equipo =repoEquipo.getReferenceById(serial);
+        Equipo equipo = repoEquipo.findById(serial).orElseThrow(
+            ResourceNotFoundException::new);
+
         return modelMapper.map(equipo, EquipoDto.class);
 
     }
     public EquipoDto actualizar(EquipoDto equipoDto) {
-
         repoEquipo.save(modelMapper.map(equipoDto, Equipo.class));
         return equipoDto;
 
