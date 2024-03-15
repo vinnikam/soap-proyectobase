@@ -11,11 +11,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Equipo")
-@Table(name = "EQUIPOS")
+@Table(name = "EQUIPOS_REL")
 public class Equipo implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EQUIPOS")
-    @SequenceGenerator(name = "SEQ_EQUIPOS", sequenceName = "SEQ_EQUIPOS", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EQUIPOS_REL")
+    @SequenceGenerator(name = "SEQ_EQUIPOS_REL", sequenceName = "SEQ_EQUIPOS_REL", allocationSize = 1)
     @Column(name = "EQU_CODIGO", nullable = false)
     private long serial;
 
@@ -25,4 +25,6 @@ public class Equipo implements Serializable {
     @Column(name = "EQU_DESCRIPCION", nullable = false)
     private String descripcion;
 
+    @OneToOne(mappedBy = "equipo", cascade = CascadeType.ALL)
+    private Estadio estadio;
 }
