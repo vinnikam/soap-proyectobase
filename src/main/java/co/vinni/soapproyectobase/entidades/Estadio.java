@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 @Data
@@ -11,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity(name = "Estadio")
 @Table(name = "ESTADIOS_REL")
+@ToString
 public class Estadio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ESTADIOS_REL")

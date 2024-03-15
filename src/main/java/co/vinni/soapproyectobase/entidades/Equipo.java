@@ -4,14 +4,18 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.Fetch;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Equipo")
 @Table(name = "EQUIPOS_REL")
+@ToString
 public class Equipo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EQUIPOS_REL")
@@ -27,4 +31,11 @@ public class Equipo implements Serializable {
 
     @OneToOne(mappedBy = "equipo", cascade = CascadeType.ALL)
     private Estadio estadio;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "equipo", cascade = CascadeType.ALL)
+    private List<Jugador> jugadores;
+
+    @ManyToMany(mappedBy = "equipos")
+    List<Ciudad> ciudades;
+
 }
