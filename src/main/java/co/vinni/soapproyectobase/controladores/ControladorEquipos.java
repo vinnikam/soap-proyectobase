@@ -50,7 +50,6 @@ public class ControladorEquipos {
     @PostMapping("/equipos/{serial}")
     public String modificarEquipo(@PathVariable long serial,@ModelAttribute( "equipo") EquipoDto equipoDto, Model model){
 
-
         model.addAttribute("equipo", servicioEquipos.actualizar(equipoDto));
         return "redirect:/equipos";
     }

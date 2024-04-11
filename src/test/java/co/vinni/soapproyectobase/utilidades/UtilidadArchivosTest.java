@@ -13,18 +13,30 @@ class UtilidadArchivosTest {
     @Test
     @DisplayName("Test registrar objeto en archivo")
     void registrarObjeto() {
-        Equipo equipo = new Equipo(1L,"millos","Equipo de la capital Bogotá");
-        boolean rta = UtilidadArchivos.guardar("prueba.txt", equipo);
+        Equipo equipo = Equipo
+                .builder()
+                .nombre("MILLOS")
+                .descripcion("EL AZUL")
+                .build();
+        boolean rta =this.guardarObjeto(equipo);
         Assertions.assertTrue(rta);
     }
     @Test
     @DisplayName("Test registrar objeto en archivo")
     void leerObjeto() {
-        Equipo equipo = new Equipo(1L,"millos","Equipo de la capital Bogotá");
-        UtilidadArchivos.guardar("prueba.txt", equipo);
+        Equipo equipo = Equipo
+                .builder()
+                .nombre("MILLOS")
+                .descripcion("EL AZUL")
+                .build();
+        this.guardarObjeto(equipo);
         Equipo elequipo = (Equipo)UtilidadArchivos.obtener ("prueba.txt");
         System.out.println(elequipo);
         Assertions.assertNotNull(elequipo);
     }
+    private boolean guardarObjeto(Object equipo){
+        return UtilidadArchivos.guardar("prueba.txt", equipo);
+    }
+
 
 }

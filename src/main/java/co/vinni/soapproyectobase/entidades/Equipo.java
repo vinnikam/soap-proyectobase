@@ -1,10 +1,7 @@
 package co.vinni.soapproyectobase.entidades;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 
 import java.io.Serializable;
@@ -16,6 +13,7 @@ import java.util.List;
 @Entity(name = "Equipo")
 @Table(name = "EQUIPOS_REL")
 @ToString
+@Builder
 public class Equipo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EQUIPOS_REL")

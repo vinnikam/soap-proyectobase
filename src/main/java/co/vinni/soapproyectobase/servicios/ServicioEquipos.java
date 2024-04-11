@@ -5,6 +5,7 @@ import co.vinni.soapproyectobase.entidades.Equipo;
 import co.vinni.soapproyectobase.exception.ResourceNotFoundException;
 import co.vinni.soapproyectobase.repositorios.RespositorioEquipo;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,15 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
-@AllArgsConstructor
+
 @Service
+@RequiredArgsConstructor
 public class ServicioEquipos implements Serializable {
 
 
-    private ModelMapper modelMapper;
+    final ModelMapper modelMapper;
 
     private final RespositorioEquipo repoEquipo;
 
@@ -37,6 +40,12 @@ public class ServicioEquipos implements Serializable {
             ResourceNotFoundException::new);
 
         return modelMapper.map(equipo, EquipoDto.class);
+
+    }
+    public Optional<Equipo> obtenerEquipoXID(long serial) {
+
+
+        return repoEquipo.findById(serial);
 
     }
     public EquipoDto actualizar(EquipoDto equipoDto) {

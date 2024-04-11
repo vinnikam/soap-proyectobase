@@ -38,8 +38,26 @@ public class ControladorEquiposANG {
 
     @GetMapping("/{serial}")
     public ResponseEntity<EquipoDto> obtenerPorId(@PathVariable("serial") Long serial) {
-        log.info( " Ïngresa serial "+ serial);
+
         return ResponseEntity.ok(servicioEquipos.obtenerEquipo(serial));
+    }
+    @GetMapping("/{serial}")
+    public ResponseEntity<EquipoDto> obtenerPorIdMap(@PathVariable("serial") Long serial) {
+
+        return servicioEquipos.obtenerEquipoXID(serial)
+                .map(equipo ->{
+                    EquipoDto equipoDto = EquipoDto
+                            .builder()
+                            .nombre(equipo.getNombre())
+                            .descripcion(equipo.getDescripcion())
+                            .serial(equipo.getSerial())
+                            .build();
+                    return ResponseEntity.ok(equipoDto);
+                  }
+
+                )
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 
 
@@ -47,7 +65,6 @@ public class ControladorEquiposANG {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<EquipoDto> crear(@Validated @RequestBody EquipoDto entityDto) {
         entityDto = servicioEquipos.registrar(entityDto);
-
         return new ResponseEntity<>(entityDto, HttpStatus.CREATED);
     }
     @PutMapping("/")

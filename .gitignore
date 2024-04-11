@@ -34,4 +34,6 @@ build/
 
 ### proyecto ###
 prueba.txt
+.env
+
 
