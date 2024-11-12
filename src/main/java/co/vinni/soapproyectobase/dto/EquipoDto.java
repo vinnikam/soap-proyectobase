@@ -18,4 +18,6 @@ public class EquipoDto implements Serializable{
     private String nombre;
     @NotBlank(message = "La descripción es obligatoria")
     private String descripcion;
+    @NotBlank(message = "El escudo es obligatorio")
+    private String escudo;
 }

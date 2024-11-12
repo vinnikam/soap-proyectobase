@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @Log4j2
@@ -34,7 +37,19 @@ public class ControladorEquipos {
         return "crear_equipo";
     }
     @PostMapping("/equipos")
-    public String registrarEquipo(@ModelAttribute("ëquipo") EquipoDto equipo) {
+    public String registrarEquipo(@ModelAttribute("equipo") EquipoDto equipo,
+                                  @RequestParam("escudoArch") MultipartFile archivoEscudo) {
+        if (!archivoEscudo.isEmpty()) {
+            try {
+                // Convertir el archivo a un arreglo de bytes
+                byte[] bytes = archivoEscudo.getBytes();
+                // Convertir a Base64
+                String imagenBase64 = Base64.getEncoder().encodeToString(bytes);
+                equipo.setEscudo(imagenBase64); // Almacena la imagen en Base64
+            } catch (IOException e) {
+                e.printStackTrace(); // Manejo de excepciones
+            }
+        }
         servicioEquipos.registrar(equipo);
         return "redirect:/equipos";
     }
@@ -49,8 +64,6 @@ public class ControladorEquipos {
 
     @PostMapping("/equipos/{serial}")
     public String modificarEquipo(@PathVariable long serial,@ModelAttribute( "equipo") EquipoDto equipoDto, Model model){
-
-
         model.addAttribute("equipo", servicioEquipos.actualizar(equipoDto));
         return "redirect:/equipos";
     }

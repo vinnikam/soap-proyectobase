@@ -29,6 +29,9 @@ public class Equipo implements Serializable {
     @Column(name = "EQU_DESCRIPCION", nullable = false)
     private String descripcion;
 
+    @Column(name = "EQU_ESCUDO", length = 5000)
+    private String escudo;
+
     @OneToOne(mappedBy = "equipo", cascade = CascadeType.ALL)
     private Estadio estadio;
 
