@@ -12,6 +12,30 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous">
+    <script>
+        const fileElem = document.getElementById('archivos');
+        const fileList = document.getElementById('file-list');
+
+        fileElem.addEventListener('change', (event) => {
+            const files = event.target.files;
+            handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            // Limpiar la lista anterior
+            fileList.innerHTML = '';
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                // Listar el nombre del archivo
+                const fileName = document.createElement('p');
+                fileName.textContent = file.name; // Nombre del archivo
+                fileList.appendChild(fileName);
+            }
+        }
+    </script>
+
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -42,16 +66,12 @@
                 <div class="card-body">
                     <form th:action="@{/equipos/addimagenes/{serial}(serial=${equipo.serial})}" enctype="multipart/form-data"
                           method="post" >
+
                         <div class="form-group">
-                            <label class="control-label" for="nombre">Serial: </label>
-                            <input id="nombre" type="text" class="form-control" th:field="*{serial}"
-                                required autofocus="autofocus" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="archivos">imagenes : </label>
+                            <label class="control-label" for="archivos">Adicionar varias imagenes : </label>
                             <input type="file" id="archivos" name="archivos" multiple required />
                         </div>
-
+                        <div id="file-list" style="margin-top: 10px;"></div>
 
                         <br>
                         <div class="form-group">
