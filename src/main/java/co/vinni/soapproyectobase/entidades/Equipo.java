@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -40,5 +41,13 @@ public class Equipo implements Serializable {
 
     @ManyToMany(mappedBy = "equipos")
     List<Ciudad> ciudades;
+
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Imagen> imagenes = new ArrayList<>(); // Lista de archivos asociados
+
+    public void addArchivo(Imagen imagen) {
+        imagenes.add(imagen);
+        imagen.setEquipo(this);
+    }
 
 }

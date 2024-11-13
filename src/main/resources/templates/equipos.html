@@ -61,6 +61,8 @@
                 <td >
                     <a th:href="@{/equipos/modificar/{serial}(serial=${dato.serial})}" class="btn btn-info">Editar</a>
                     <a th:href="@{/equipos/{serial}(serial=${dato.serial})}" class="btn btn-danger">Eliminar</a>
+                    <a th:href="@{/equipos/imagenes/{serial}(serial=${dato.serial})}" class="btn btn-danger">add Imagen</a>
+                    <a th:href="@{/equipos/listaimagenes/{serial}(serial=${dato.serial})}" class="btn btn-danger">lista imagenes</a>
                 </td>
 
             </tr>

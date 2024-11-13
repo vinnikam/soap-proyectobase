@@ -1,6 +1,7 @@
 package co.vinni.soapproyectobase.controladores;
 
 import co.vinni.soapproyectobase.dto.EquipoDto;
+import co.vinni.soapproyectobase.entidades.Imagen;
 import co.vinni.soapproyectobase.servicios.ServicioEquipos;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -61,6 +66,18 @@ public class ControladorEquipos {
         model.addAttribute("equipo", servicioEquipos.obtenerEquipo(serial));
         return "editar_equipo";
     }
+    @GetMapping("/equipos/imagenes/{serial}")
+    public String mostrarImagenes(@PathVariable long serial, Model model){
+        model.addAttribute("equipo", servicioEquipos.obtenerEquipo(serial));
+        return "imagenes";
+    }
+
+    @GetMapping("/equipos/listaimagenes/{serial}")
+    public String listarImagenes(@PathVariable long serial, Model model){
+        System.out.println(serial);
+        model.addAttribute("equipo", servicioEquipos.obtenerEquipo(serial));
+        return "listaimagenes";
+    }
 
     @PostMapping("/equipos/{serial}")
     public String modificarEquipo(@PathVariable long serial,@ModelAttribute( "equipo") EquipoDto equipoDto, Model model){
@@ -73,5 +90,32 @@ public class ControladorEquipos {
         servicioEquipos.eliminar(serial);
 
         return "redirect:/equipos";
+    }
+    @PostMapping("/equipos/addimagenes/{serial}")
+    public String guardarImagenes(@PathVariable long serial,
+                                  @RequestParam("archivos") MultipartFile[] files) {
+        String directorioDestino = "src/main/resources/static/images/";
+        System.out.println(" - -- - - - - >"+serial);
+        EquipoDto equipoDto = servicioEquipos.obtenerEquipo(serial);
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                try {
+                    String nombreArchivo = file.getOriginalFilename();
+                    Path rutaCompleta = Paths.get(directorioDestino + nombreArchivo);
+                    Files.write(rutaCompleta, file.getBytes());
+
+                    // Crear y agregar el archivo a la entidad
+                    Imagen imagen = new Imagen();
+                    imagen.setNombreArchivo(nombreArchivo);
+                    imagen.setRuta(rutaCompleta.toString());
+                    equipoDto.addImagen(imagen);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Manejo de excepciones
+                }
+            }
+        }
+        // Guarda la entidad en la base de datos
+        servicioEquipos.actualizar(equipoDto);
+        return "redirect:/equipos"; // Redirige a una página de éxito
     }
 }

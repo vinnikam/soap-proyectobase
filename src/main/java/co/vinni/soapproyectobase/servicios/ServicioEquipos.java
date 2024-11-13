@@ -2,6 +2,7 @@ package co.vinni.soapproyectobase.servicios;
 
 import co.vinni.soapproyectobase.dto.EquipoDto;
 import co.vinni.soapproyectobase.entidades.Equipo;
+import co.vinni.soapproyectobase.entidades.Imagen;
 import co.vinni.soapproyectobase.exception.ResourceNotFoundException;
 import co.vinni.soapproyectobase.repositorios.RespositorioEquipo;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,11 @@ public class ServicioEquipos implements Serializable {
 
     }
     public EquipoDto actualizar(EquipoDto equipoDto) {
-        repoEquipo.save(modelMapper.map(equipoDto, Equipo.class));
+        Equipo elEquipo = modelMapper.map(equipoDto, Equipo.class);
+        for (Imagen imagen : equipoDto.getImagenes()) {
+            elEquipo.addArchivo(imagen);
+        }
+        this.repoEquipo.save(elEquipo);
         return equipoDto;
 
     }
