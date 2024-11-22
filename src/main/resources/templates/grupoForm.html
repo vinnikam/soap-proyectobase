@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adicionar Grupo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+</head>
+<body>
+<h1>Adicionar Grupo</h1>
+<form action="#" th:action="@{/grupos}" th:object="${grupo}" method="post">
+    <label class="control-label">Nombre Grupo:</label>
+    <input class="form-control" type="text" th:field="*{nombre}" required/>
+    <br>
+
+    <h3>Nuevo Estudiante</h3>
+    <div id="estudiantesContainer">
+        <div>
+            <input class="form-control" type="text" name="estudiantes[0].nombre" placeholder="Nombre del Estudiante" required/>
+            <br>
+            <input class="form-control" type="text" name="estudiantes[0].talla" placeholder="Talla" required/>
+            <br>
+            <input class="form-control" type="number" name="estudiantes[0].edad" placeholder="Edad" required/>
+            <br>
+        </div>
+    </div>
+    <button type="button" class="btn btn-warning"onclick="addEstudiante()">Agregar Estudiante</button>
+    <br>
+
+    <button class="btn btn-success" type="submit">Guardar</button>
+</form>
+
+<script>
+    function addEstudiante() {
+        const estudiantesContainer = document.getElementById('estudiantesContainer');
+        const nuevoEstudianteDiv = document.createElement('div');
+        nuevoEstudianteDiv.innerHTML = `
+                <input class="form-control" type="text" name="estudiantes[${estudiantesContainer.children.length}].nombre" placeholder="Nombre del Estudiante" required/>
+                <br>
+                <input class="form-control" type="text" name="estudiantes[${estudiantesContainer.children.length}].talla" placeholder="Talla" required/>
+                <br>
+                <input class="form-control" type="number" name="estudiantes[${estudiantesContainer.children.length}].edad" placeholder="Edad" required/>
+            `;
+        estudiantesContainer.appendChild(nuevoEstudianteDiv);
+    }
+</script>
+</body>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
